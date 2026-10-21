@@ -45,7 +45,9 @@
   "commits": [
     { "hash": "9d6b15a", "mensaje": "Scaffold simulador 3D solo-frontend: motores CA/Rothermel/KITRAL, IA WebLLM, endpoints de cliente, UI" },
     { "hash": "1792892", "mensaje": "Verificacion real end-to-end + correccion de bugs encontrados + documentacion metodologia" },
-    { "hash": "(este commit, no se puede conocer el hash antes de crearlo)", "mensaje": "Cierre: metadatos.json, VERIFICACION.md, mediciones WebLLM reales (WebGPU/latencia), registro en Neo4j conaf" }
+    { "hash": "4ecf168", "mensaje": "Cierre del ejercicio: metadatos.json, VERIFICACION.md, mediciones WebLLM reales" },
+    { "hash": "21e3972", "mensaje": "Remove stray commit message scratch file" },
+    { "hash": "(este commit, no se puede conocer el hash antes de crearlo)", "mensaje": "Ultimo ajuste de metadatos.json con hashes finales" }
   ],
   "comandos_reproducir": {
     "pruebas_motores_y_benchmark_ca_240": "node tools/test_motores.mjs",
