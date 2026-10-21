@@ -184,6 +184,35 @@ clasificación (error propio / infraestructura / reintento).
 - **Clasificación**: infraestructura (CORS del proveedor de datos
   público, fuera del control de este proyecto).
 
+## 12. Flags de Chrome usadas para forzar render por software ocultaban WebGPU real
+- **Hora**: verificación de casos de uso y medición de WebLLM
+- **Qué pasó**: `tools/verificar_app.mjs` lanza Chrome con
+  `--enable-unsafe-webgpu --use-gl=angle --use-angle=swiftshader
+  --enable-webgl`, pensado para forzar render 3D por software en un
+  entorno sin GPU dedicada para las capturas de pantalla. Con esas flags,
+  `navigator.gpu.requestAdapter()` devolvía `null` (badge "WebGPU: no
+  disponible"). `tools/verificar_casos_uso.mjs` y
+  `tools/verificar_webllm_real.mjs` lanzan Chrome SOLO con `--no-sandbox`
+  (sin forzar ANGLE/SwiftShader), y en esos scripts
+  `requestAdapter()` SÍ tuvo éxito: WebLLM cargó un modelo real
+  (Llama-3.2-1B-Instruct-q4f16_1-MLC, 35.84 s de inicialización) y generó
+  respuestas reales en español (20.49 s para "OK.", 106.54 s para una
+  respuesta completa).
+- **Cómo se detectó**: al revisar `ejercicio/salidas/casos_de_uso_transcripcion.json`
+  se encontró una respuesta real de IA (no la plantilla de fallback) donde
+  se esperaba fallback, lo cual era inesperado dado que
+  `verificar_app.mjs` había reportado "WebGPU no disponible" para la misma
+  máquina.
+- **Cómo se corrigió**: no se trató de "arreglar" (ambos comportamientos
+  son reales y reproducibles, cada uno con sus propias flags); se creó
+  `tools/verificar_webllm_real.mjs` sin las flags conflictivas para medir
+  WebLLM de forma limpia, y se documentó la inconsistencia explícitamente
+  en `metadatos.json` → `mediciones.webgpu_disponible_nota` en vez de
+  reportar un único valor sin matices.
+- **Clasificación**: infraestructura / hallazgo real del entorno (no es un
+  bug del código de la app: es una interacción entre las flags de
+  lanzamiento de Chrome y el backend WebGPU).
+
 ## ¿Hubo más errores no listados aquí?
 
 No se omitió ningún error detectado. Como evidencia de que se buscaron

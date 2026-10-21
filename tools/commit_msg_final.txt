@@ -1,0 +1,16 @@
+Cierre del ejercicio: metadatos.json, VERIFICACION.md, mediciones WebLLM reales
+
+Se descubrio que WebGPU si funciona en este entorno quitando las flags de
+Chrome que forzaban render por software (--use-angle=swiftshader), lo que
+permitio medir WebLLM real: modelo Llama-3.2-1B-Instruct-q4f16_1-MLC
+cargado en 35.84s, respuestas reales en espanol citando el contexto del
+incendio, con latencia de 20.49s a 106.54s (muy por encima del objetivo
+de <3s del documento, documentado honestamente como no cumplido).
+
+metadatos.json documenta el timeline completo de la Seccion 10, el
+Checklist Minimo, los 8 endpoints de cliente y los 8 casos de uso con
+estado verificado/no comprobado/no hecho, mas supuestos y decisiones
+explicitas. VERIFICACION.md detalla cada veredicto con su comando y
+evidencia real en ejercicio/salidas/.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>

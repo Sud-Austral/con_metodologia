@@ -1,0 +1,16 @@
+{
+  "gpuDisponible": true,
+  "init": {
+    "ok": true,
+    "modo": "webllm",
+    "modelo": "Llama-3.2-1B-Instruct-q4f16_1-MLC",
+    "descarga_s": 35.83880000001192
+  },
+  "tInit": 36.164900000035765,
+  "respuestaPrueba": {
+    "respuesta": "OK.",
+    "modo": "webllm",
+    "latencia_s": 20.49039999997616,
+    "tokens": 3
+  }
+}
