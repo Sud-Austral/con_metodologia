@@ -152,11 +152,18 @@ export function crearEscena(container, { nx = 240, ny = 240, cellSizeM = 13 } = 
   function tick(dt = 5) {
     if (estadoSimulacion.pausado || tickPendiente) return
     tickPendiente = true
+    // Retardante aplicado (Seccion 9 ejemplo 2): reduccion GLOBAL del ROS,
+    // no por zona (el MVP no rastrea geometria de la zona de aplicacion
+    // celda a celda, ver metadatos.json -> no_hecho). Es un efecto real
+    // sobre la fisica del tick, no solo un dato guardado sin usar.
+    const factorRetardante = estadoSimulacion.retardanteActivo
+      ? 1 - estadoSimulacion.retardanteActivo.reduccionPct / 100
+      : 1
     worker.postMessage({
       cmd: 'tick', tiempo_min: grid.tiempo_min,
       viento_kmh: estadoSimulacion.vel_viento, viento_dir: estadoSimulacion.dir_viento,
       pendiente: 20, humedad: estadoSimulacion.hum_combustible, dt,
-      params: { ajusteROS: 0.7 },
+      params: { ajusteROS: 0.7 * factorRetardante },
     })
   }
 
@@ -168,7 +175,9 @@ export function crearEscena(container, { nx = 240, ny = 240, cellSizeM = 13 } = 
     const ahora = performance.now()
     const dtFrame = ahora - ultimoTiempoFrame
     ultimoTiempoFrame = ahora
-    fpsUltimos.push(1000 / dtFrame)
+    // Bug real encontrado en verificacion headless (ver EQUIVOCACIONES.md):
+    // el primer frame podia dar dtFrame~0 y FPS=Infinity en el HUD.
+    if (dtFrame > 0 && Number.isFinite(1000 / dtFrame)) fpsUltimos.push(Math.min(240, 1000 / dtFrame))
     if (fpsUltimos.length > 60) fpsUltimos.shift()
 
     if (frameCount % 10 === 0) tick(5)

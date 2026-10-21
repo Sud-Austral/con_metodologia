@@ -1,0 +1,77 @@
+{
+  "transcripcion": [
+    {
+      "caso": 1,
+      "nombre": "Lectura Simple",
+      "pregunta": "¿Cual es el ROS actual?",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 2,
+      "nombre": "Control — Desplegar Brigada",
+      "pregunta": "Desplegar Brigada R-22 al norte, acceso Los Copihues",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 3,
+      "nombre": "Proyeccion Alternativa",
+      "pregunta": "¿Que pasa si el viento sube a 35 km/h en 30 minutos?",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 4,
+      "nombre": "Analisis Estrategico",
+      "pregunta": "¿Brigada al norte o al este?",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 5,
+      "nombre": "Guardado de Decision",
+      "pregunta": "Guarda la estrategia actual",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 6,
+      "nombre": "Analisis de Amenaza",
+      "pregunta": "Cual es el riesgo para Puerto Montt",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 7,
+      "nombre": "Multi-turno (1/2)",
+      "pregunta": "¿Hay alternativa sin helicoptero?",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 8,
+      "nombre": "Multi-turno (2/2) + intento de exportacion por chat",
+      "pregunta": "Exporta todo a PDF",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    }
+  ],
+  "decisionesGuardadas": []
+}

@@ -33,7 +33,13 @@ export async function chatConsultar({ pregunta, simulacion_id, estadisticas }) {
   const resultado = await chatLLM(promptSistema, pregunta, estadisticas)
   const latencia_s = (performance.now() - t0) / 1000
 
-  const comando = parseadorIntenciones(resultado.respuesta) || parseadorIntenciones(pregunta)
+  // Se parsea primero la PREGUNTA del despachador (fuente confiable de
+  // parametros como direccion/volumen) y solo si no trae un comando se
+  // intenta con la respuesta de la IA. Bug real encontrado en verificacion
+  // headless (ver EQUIVOCACIONES.md): al parsear primero la respuesta
+  // fallback, la frase fija "en este navegador" matcheaba "este" como
+  // direccion antes que "norte" en la pregunta original.
+  const comando = parseadorIntenciones(pregunta) || parseadorIntenciones(resultado.respuesta)
   let comandoEjecutado = null
   if (comando) comandoEjecutado = await ejecutarComando(comando)
 

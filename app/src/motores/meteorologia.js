@@ -40,6 +40,11 @@ export async function cargarMeteo(lat, lon, fecha, dias = 3) {
     hourly: 'temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m,wind_direction_10m',
     timezone: 'America/Santiago',
     forecast_days: String(Math.max(1, Math.min(16, dias))),
+    // Open-Meteo devuelve wind_speed_10m en km/h por defecto (verificado
+    // en ejercicio/salidas/open_meteo_real.json). Se fuerza m/s aqui para
+    // que procesarFWI() pueda convertir *3.6 como describe la Seccion 5.4
+    // del documento insumo sin duplicar la conversion.
+    wind_speed_unit: 'ms',
   })
   const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`
   const resp = await fetch(url)

@@ -57,7 +57,7 @@ export async function inicializarLLM(onProgreso) {
 // Respuestas template cuando no hay WebGPU/WebLLM (Seccion 11 FAQ).
 function respuestaFallback(pregunta, estadisticas) {
   const e = estadisticas || {}
-  return `No dispongo de IA en este navegador (sin WebGPU), pero con los datos actuales: ` +
+  return `Sin IA disponible (WebGPU no detectado en este dispositivo), pero con los datos actuales: ` +
     `ROS ${e.ros_cabeza ?? '?'} m/min, ${(e.hectareas ?? 0)} ha quemadas, ` +
     `viento ${e.vel_viento ?? '?'} km/h desde ${e.dir_viento ?? '?'}°. ` +
     `Pregunta recibida: "${pregunta}".`

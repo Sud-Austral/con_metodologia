@@ -1,0 +1,12 @@
+{
+  "pdf": {
+    "ok": true,
+    "bytes": 3461
+  },
+  "kmz": {
+    "ok": true,
+    "tipo": "kmz",
+    "bytes": 27661,
+    "perimetroCeldas": 1133
+  }
+}
