@@ -4,9 +4,6 @@ import ChatPanel from './componentes/ChatPanel.jsx'
 import ControlPanel from './componentes/ControlPanel.jsx'
 import { inyectarEstado } from './api_cliente.js'
 
-// Worker URL (Vite maneja esto con ?worker)
-const WORKER_URL = new URL('./motores/kitral_worker.js', import.meta.url)
-
 const LAT_DEFAULT = -41.4700
 const LNG_DEFAULT = -72.9400
 
@@ -42,6 +39,10 @@ export default function Simulador3D() {
   const estadoRef = useRef(estado)
   useEffect(() => { estadoRef.current = estado }, [estado])
 
+  // El bucle de animate se crea una sola vez: debe leer corriendo por ref, no por closure
+  const corriendoRef = useRef(corriendo)
+  useEffect(() => { corriendoRef.current = corriendo }, [corriendo])
+
   // Inyectar estado en api_cliente
   useEffect(() => {
     inyectarEstado(estadoRef.current, {
@@ -66,7 +67,8 @@ export default function Simulador3D() {
     escena3DRef.current = escena
 
     // Inicializar worker KITRAL
-    const worker = new Worker(WORKER_URL, { type: 'module' })
+    // Vite solo empaqueta el worker si new URL() va inline dentro de new Worker()
+    const worker = new Worker(new URL('./motores/kitral_worker.js', import.meta.url), { type: 'module' })
     workerRef.current = worker
 
     worker.onmessage = (evt) => {
@@ -128,7 +130,7 @@ export default function Simulador3D() {
 
     // Loop de animación
     escena.animate((frameCounter) => {
-      if (!corriendo) return
+      if (!corriendoRef.current) return
 
       // Tick cada 10 frames (~6 ticks/s a 60fps)
       if (frameCounter % 10 === 0) {
@@ -154,16 +156,6 @@ export default function Simulador3D() {
       worker.terminate()
     }
   }, [])
-
-  // Usar corriendo como ref para el callback de animate
-  const corriendoRef = useRef(corriendo)
-  useEffect(() => { corriendoRef.current = corriendo }, [corriendo])
-
-  // Re-parchear el callback del worker con corriendo actualizado
-  useEffect(() => {
-    if (!escena3DRef.current) return
-    escena3DRef.current.animate = undefined  // no re-inicializar, solo actualizar ref
-  }, [corriendo])
 
   function iniciarSimulacion(lat = LAT_DEFAULT, lng = LNG_DEFAULT) {
     if (!workerRef.current) return

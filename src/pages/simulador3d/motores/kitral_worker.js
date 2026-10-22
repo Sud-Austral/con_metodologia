@@ -58,6 +58,7 @@ self.onmessage = function(evt) {
       }
 
       const ms_tick = performance.now() - t0
+      const copiaState = gridActual.state.slice()
 
       self.postMessage({
         tipo: 'tick_ok',
@@ -69,17 +70,11 @@ self.onmessage = function(evt) {
         ardiendo,
         quemada,
         ms_tick,
-        // Enviar estado comprimido (solo ardiendo y quemada para visualización)
-        state: gridActual.state.buffer,
+          // Se transfiere una COPIA: transferir el buffer original lo vacía y el fuego desaparece
+        state: copiaState.buffer,
         cols: gridActual.cols,
         rows: gridActual.rows,
-      }, [gridActual.state.buffer])
-
-      // Restaurar buffer (transferido, necesita nueva copia)
-      gridActual.state = new Uint8Array(gridActual.cols * gridActual.rows)
-      // Re-leer desde los datos transferidos no es posible; crear estado desde perimetro
-      // En práctica el worker mantiene su copia interna
-      // NOTA: Transferir buffer vacía el original - mejor usar structuredClone o no transferir
+      }, [copiaState.buffer])
 
     } catch(e) {
       self.postMessage({ tipo: 'error', mensaje: e.message })

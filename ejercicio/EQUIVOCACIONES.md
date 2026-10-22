@@ -43,3 +43,36 @@ criterio incompleto: DISPONIBLE, PROFUNDIZABLE, BLOQUEANTE debe(n) ser un array 
 **Corrección (no comprobado en esta sesión)**: Enviar una copia del buffer o usar SharedArrayBuffer. El worker recrea el grid en init, lo que mitiga parcialmente el problema pero el tick acumulativo se pierde.
 
 ---
+## Error 5 - Worker KITRAL sin empaquetar en producción (detectado DESPUÉS de la corrida, en la versión publicada)
+**Hora**: 2026-10-22T09:25:00Z
+**Clasificación**: error propio (de la corrida) + fallo de verificación: el agente marcó "verificado" el worker sin abrir el build publicado.
+**Qué pasó**: En https://sud-austral.github.io/con_metodologia/ la app quedaba fija en "Iniciando Motor KITRAL CA...". Chromium headless reportó:
+```
+REQFAIL .../assets/rothermel.js net::ERR_ABORTED
+REQFAIL .../assets/ca_propagacion.js net::ERR_ABORTED
+```
+**Cómo se detectó**: Render real de la URL publicada con Playwright (scratchpad/verificar_publicado.mjs) tras el deploy; el worker compilado pesaba 4.5 KB y conservaba `import ... from './rothermel.js'`.
+**Causa**: `const WORKER_URL = new URL('./motores/kitral_worker.js', import.meta.url)` fuera de `new Worker(...)`. Vite solo reconoce y empaqueta un worker cuando `new URL()` va inline dentro de `new Worker()`; al estar en una constante lo copió como asset crudo con sus imports sin resolver.
+**Corrección**: `new Worker(new URL('./motores/kitral_worker.js', import.meta.url), { type: 'module' })` en Simulador3D.jsx. Rebuild, redeploy y nueva verificación sobre la URL publicada.
+**Nota para el informe**: esta corrección se hizo fuera del tiempo de la corrida; cuenta como defecto entregado por la corrida CON.
+
+---
+## Error 6 - Bucle de animación con closure obsoleto: la simulación nunca enviaba ticks (detectado DESPUÉS de la corrida)
+**Hora**: 2026-10-22T09:35:00Z
+**Clasificación**: error propio de la corrida + fallo de verificación (el MVP "Comando desplegar / simulación corre" se marcó verificado sin pulsar Iniciar en navegador real).
+**Qué pasó**: Con el worker ya empaquetado, al pulsar "▶ Iniciar" el HUD seguía en Tiempo 0 min / ms/tick 0 tras 10 s.
+**Cómo se detectó**: scratchpad/verificar_simulacion.mjs (Playwright): clic en Iniciar y lectura del HUD.
+**Causa**: `escena.animate((frame) => { if (!corriendo) return; ... })` se registra una sola vez en el useEffect inicial y captura `corriendo=false` para siempre. Existía un `corriendoRef` pero el bucle no lo usaba.
+**Corrección**: el bucle lee `corriendoRef.current`; se eliminó un useEffect que asignaba `escena.animate = undefined` sin efecto.
+
+---
+
+## Error 7 - El worker transfería su propio buffer y lo reemplazaba por un grid vacío: el fuego desaparecía en cada tick (detectado DESPUÉS de la corrida)
+**Hora**: 2026-10-22T09:40:00Z
+**Clasificación**: error propio de la corrida. Era el "Error 4" que la corrida dejó anotado como "no comprobado" y no corrigió.
+**Qué pasó**: Con los ticks ya fluyendo, Tiempo llegaba a 115 min pero Hectáreas y ROS seguían en 0.0.
+**Cómo se detectó**: misma verificación Playwright; captura con un único punto de ignición que nunca crece.
+**Causa**: `postMessage({state: grid.state.buffer}, [grid.state.buffer])` deja el buffer del worker con byteLength 0, y a continuación `gridActual.state = new Uint8Array(...)` lo rellenaba de ceros (ninguna celda ardiendo).
+**Corrección**: enviar `grid.state.slice()` y transferir esa copia; el grid del worker conserva su estado.
+
+---
