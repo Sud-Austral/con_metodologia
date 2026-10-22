@@ -1,0 +1,56 @@
+{
+  "estadisticas": {
+    "nombre": "Los Lagos — Coigue-1 (demo)",
+    "minutos": 50,
+    "hectareas": 5.6784,
+    "ros_cabeza": 3.4336919113374225,
+    "altura_llama": 4.060215146802454,
+    "dir_viento": 270,
+    "vel_viento": 22,
+    "hum_combustible": 9,
+    "modelo": "K2",
+    "lat": -41.47,
+    "lng": -72.7,
+    "recursos_markdown": "- R-22 (Brigada): Base\n- H-01 (Helicoptero): Base",
+    "amenazadas_markdown": "- Escuela Pucatrihue: 4.5 km"
+  },
+  "mensajes": [
+    {
+      "conversacion_id": "demo-coigue1",
+      "rol": "user",
+      "contenido": "¿Cual es el ROS actual?",
+      "tokens": null,
+      "modelo": null,
+      "timestamp": "2026-10-21T22:19:24.851Z",
+      "id": 1
+    },
+    {
+      "conversacion_id": "demo-coigue1",
+      "rol": "assistant",
+      "contenido": "Sin IA disponible (WebGPU no detectado en este dispositivo), pero con los datos actuales: ROS 3.4336919113374225 m/min, 4.6137 ha quemadas, viento 22 km/h desde 270°. Pregunta recibida: \"¿Cual es el ROS actual?\".",
+      "tokens": null,
+      "modelo": "fallback",
+      "timestamp": "2026-10-21T22:19:24.853Z",
+      "id": 2
+    },
+    {
+      "conversacion_id": "demo-coigue1",
+      "rol": "user",
+      "contenido": "Desplegar Brigada R-22 al norte, acceso Los Copihues",
+      "tokens": null,
+      "modelo": null,
+      "timestamp": "2026-10-21T22:19:33.444Z",
+      "id": 3
+    },
+    {
+      "conversacion_id": "demo-coigue1",
+      "rol": "assistant",
+      "contenido": "Sin IA disponible (WebGPU no detectado en este dispositivo), pero con los datos actuales: ROS 3.4336919113374225 m/min, 19.0294 ha quemadas, viento 22 km/h desde 270°. Pregunta recibida: \"Desplegar Brigada R-22 al norte, acceso Los Copihues\".",
+      "tokens": null,
+      "modelo": "fallback",
+      "timestamp": "2026-10-21T22:19:33.445Z",
+      "id": 4
+    }
+  ],
+  "decisiones": []
+}

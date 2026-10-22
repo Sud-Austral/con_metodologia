@@ -1,0 +1,45 @@
+=== Rothermel / KITRAL ===
+PASS - ROS K1 viento=0 pend=0 hum=2% ~= 2.7 m/min
+PASS - ROS=0 cuando humedad >= humedadExtincion
+PASS - ROS sube con viento y pendiente
+PASS - calcularROS lanza error con modelo inexistente
+PASS - alturaLlama crece con ROS
+
+=== Clasificacion de combustible ===
+PASS - clasificarCombustible devuelve nx*ny modelos
+PASS - todos los modelos clasificados existen en la tabla KITRAL
+
+=== DEM ===
+PASS - decodificarRGB produce 1 elevacion por pixel
+PASS - decodificarRGB formula Terrarium correcta
+PASS - remuestrear produce nxDest*nyDest valores
+
+=== Meteorologia / FWI ===
+PASS - FWI mayor con calor/sequedad/viento
+PASS - FWI=0 si hay precipitacion
+PASS - procesarFWI devuelve un registro por hora
+PASS - conversion m/s a km/h correcta (5 m/s = 18 km/h)
+
+=== Parseador de intenciones ===
+PASS - detecta comando desplegar_recurso
+PASS - extrae recurso_id correctamente
+PASS - extrae direccion correctamente
+PASS - detecta retardante con volumen
+PASS - pregunta de lectura simple no dispara comando
+
+=== Exportaciones puras ===
+PASS - exportarMarkdown incluye nombre y mensajes
+PASS - exportarCSV tiene cabecera + filas
+PASS - gridAPoligonoKML genera XML valido con coordenadas
+
+=== CA 240x240: correctitud + benchmark ===
+PASS - initCA enciende exactamente 1 celda
+PASS - tras 20 ticks hay superficie quemada
+PASS - hay un frente activo (celdas quemando) tras 20 ticks
+PASS - el perimetro no esta vacio tras 20 ticks
+MEDIDO: ms/tick promedio (grid 240x240, 20 ticks) = 0.821 ms
+MEDIDO: hectareas tras 20 ticks (100 min simulados) = 20.35 ha
+MEDIDO: celdas en frente = 151, celdas en perimetro = 142
+PASS - ms/tick grid 240x240 cumple checklist MVP (<100 ms/tick)
+
+=== RESUMEN: 27/27 pruebas OK, 0 fallidas ===

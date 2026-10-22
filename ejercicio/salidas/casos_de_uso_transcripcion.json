@@ -1,0 +1,102 @@
+{
+  "transcripcion": [
+    {
+      "caso": 1,
+      "nombre": "Lectura Simple",
+      "pregunta": "¿Cual es el ROS actual?",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 2,
+      "nombre": "Control — Desplegar Brigada",
+      "pregunta": "Desplegar Brigada R-22 al norte, acceso Los Copihues",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 3,
+      "nombre": "Proyeccion Alternativa",
+      "pregunta": "¿Que pasa si el viento sube a 35 km/h en 30 minutos?",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 4,
+      "nombre": "Analisis Estrategico",
+      "pregunta": "¿Brigada al norte o al este?",
+      "ultimos_mensajes": [
+        "¿Cual es el ROS actual?",
+        "Lo siento, pero en este escenario se utiliza una simulación de incendio forestal con un sistema de simulación de incendio forestal estándar (SOF), que generalmente no incluye datos de rendimiento del combustible (ROS) en la simulación. Sin embargo, puedo sugerir una forma de estimar o calcular el ROS actual si se nos proporciona información adicional sobre la situación en la que se encuentra.\n\nSi se nos proporciona información sobre el modelo de combustible utilizado, el volumen de combustible, la superficie quemada, la dirección del viento, la velocidad del viento, la humedad del aire, el modelo de incendio forestal y otros factores, podemos intentar estimar o calcular el ROS actual.\n\nPor ejemplo, si se nos proporciona información sobre el modelo de combustible utilizado (por ejemplo, K2) y el volumen de combustible (9%), la superficie quemada (255,7 ha), la dirección del viento (270 grados) y la velocidad del viento (22 km/h), podemos intentar estimar el ROS actual mediante fórmulas matemáticas o modelos estándar.\n\nSin embargo, es importante tener en cuenta que la simulación de incendio forestal estándar no siempre incluye datos de rendimiento del combustible (ROS) en la simulación, por lo que no es posible determinar el ROS actual sin más información adicional.webllm · 106.54s"
+      ]
+    },
+    {
+      "caso": 5,
+      "nombre": "Guardado de Decision",
+      "pregunta": "Guarda la estrategia actual",
+      "ultimos_mensajes": [
+        "Lo siento, pero en este escenario se utiliza una simulación de incendio forestal con un sistema de simulación de incendio forestal estándar (SOF), que generalmente no incluye datos de rendimiento del combustible (ROS) en la simulación. Sin embargo, puedo sugerir una forma de estimar o calcular el ROS actual si se nos proporciona información adicional sobre la situación en la que se encuentra.\n\nSi se nos proporciona información sobre el modelo de combustible utilizado, el volumen de combustible, la superficie quemada, la dirección del viento, la velocidad del viento, la humedad del aire, el modelo de incendio forestal y otros factores, podemos intentar estimar o calcular el ROS actual.\n\nPor ejemplo, si se nos proporciona información sobre el modelo de combustible utilizado (por ejemplo, K2) y el volumen de combustible (9%), la superficie quemada (255,7 ha), la dirección del viento (270 grados) y la velocidad del viento (22 km/h), podemos intentar estimar el ROS actual mediante fórmulas matemáticas o modelos estándar.\n\nSin embargo, es importante tener en cuenta que la simulación de incendio forestal estándar no siempre incluye datos de rendimiento del combustible (ROS) en la simulación, por lo que no es posible determinar el ROS actual sin más información adicional.webllm · 106.54s",
+        "Guarda la estrategia actual",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 6,
+      "nombre": "Analisis de Amenaza",
+      "pregunta": "Cual es el riesgo para Puerto Montt",
+      "ultimos_mensajes": [
+        "Lo siento, pero en este escenario se utiliza una simulación de incendio forestal con un sistema de simulación de incendio forestal estándar (SOF), que generalmente no incluye datos de rendimiento del combustible (ROS) en la simulación. Sin embargo, puedo sugerir una forma de estimar o calcular el ROS actual si se nos proporciona información adicional sobre la situación en la que se encuentra.\n\nSi se nos proporciona información sobre el modelo de combustible utilizado, el volumen de combustible, la superficie quemada, la dirección del viento, la velocidad del viento, la humedad del aire, el modelo de incendio forestal y otros factores, podemos intentar estimar o calcular el ROS actual.\n\nPor ejemplo, si se nos proporciona información sobre el modelo de combustible utilizado (por ejemplo, K2) y el volumen de combustible (9%), la superficie quemada (255,7 ha), la dirección del viento (270 grados) y la velocidad del viento (22 km/h), podemos intentar estimar el ROS actual mediante fórmulas matemáticas o modelos estándar.\n\nSin embargo, es importante tener en cuenta que la simulación de incendio forestal estándar no siempre incluye datos de rendimiento del combustible (ROS) en la simulación, por lo que no es posible determinar el ROS actual sin más información adicional.webllm · 106.54s",
+        "Guarda la estrategia actual",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 7,
+      "nombre": "Multi-turno (1/2)",
+      "pregunta": "¿Hay alternativa sin helicoptero?",
+      "ultimos_mensajes": [
+        "✅ Comando ejecutado: {\"ok\":true}",
+        "¿Hay alternativa sin helicoptero?",
+        "Pensando..."
+      ]
+    },
+    {
+      "caso": 8,
+      "nombre": "Multi-turno (2/2) + intento de exportacion por chat",
+      "pregunta": "Exporta todo a PDF",
+      "ultimos_mensajes": [
+        "✅ Comando ejecutado: {\"ok\":true}",
+        "¿Hay alternativa sin helicoptero?",
+        "Pensando..."
+      ]
+    }
+  ],
+  "decisionesGuardadas": [
+    {
+      "descripcion": "Plan guardado en T=9085: ROS 3.4336919113374225 m/min, 973.44 ha",
+      "snapshot": {
+        "nombre": "Los Lagos — Coigue-1 (demo)",
+        "minutos": 9085,
+        "hectareas": 973.44,
+        "ros_cabeza": 3.4336919113374225,
+        "altura_llama": 4.060215146802454,
+        "dir_viento": 270,
+        "vel_viento": 22,
+        "hum_combustible": 9,
+        "modelo": "K2",
+        "lat": -41.47,
+        "lng": -72.7,
+        "recursos_markdown": "- R-22 (Brigada): Base\n- H-01 (Helicoptero): Base",
+        "amenazadas_markdown": "- Escuela Pucatrihue: 4.5 km"
+      },
+      "timestamp": "2026-10-21T22:32:10.069Z",
+      "id": 1
+    }
+  ]
+}
