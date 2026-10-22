@@ -1,0 +1,61 @@
+{
+  "proyecto": "Simulador 3D Incendios Forestales CONAF",
+  "repo": "con_metodologia",
+  "rama": "ejercicio/con-metodologia",
+  "autor": "luis.monsalve@conaf.cl",
+  "fecha_inicio": "2026-10-21",
+  "fecha_entrega": "2026-10-22",
+  "stack": {
+    "frontend": "React 18 + Vite 5 + Three.js 0.170 + Tailwind 3",
+    "ia_local": "WebLLM (MLC WebGPU) → Transformers.js (ONNX WASM) → template fallback",
+    "modelos": ["Llama-3.2-1B-Instruct-q4f32_1-MLC", "Xenova/Qwen2.5-0.5B-Instruct"],
+    "testing": "Vitest 2.1",
+    "deploy": "GitHub Pages via Actions (peaceiris/actions-gh-pages@v4)",
+    "base_path": "/con_metodologia/"
+  },
+  "motores": {
+    "ca_propagacion": "KITRAL Cellular Automata 240x240 grid 13m cells Web Worker",
+    "ros": "Rothermel simplificado (phi_viento + phi_pendiente)",
+    "combustible": "13 modelos KITRAL (K1-K13)",
+    "meteorologia": "Open-Meteo via n8n webhook proxy"
+  },
+  "n8n": {
+    "workflow_id": "ljDGeTW5x610iZtz",
+    "active_version_id": "b5cade92-0357-4c32-835a-7f20f0f641f1",
+    "webhook_path": "meteo-loslagos",
+    "webhook_url": "https://n8n.conaf.cl/webhook/meteo-loslagos",
+    "execution_verificada": "345",
+    "resultado": "success",
+    "fuente_datos": "Open-Meteo API (Los Lagos, lat=-41.47, lon=-72.94)"
+  },
+  "neo4j": {
+    "instancia": "conaf",
+    "metodologia_id": "smb-metodologia-simulador-3d-incendios-forestales-conaf-webllm-kitral",
+    "objetivos": [
+      "obj-integrar-kitral-ca-en-web-worker-240x240-grid-simulador-3d-s39s",
+      "obj-implementar-ia-local-webllm-en-navegador-simulador-3d-ujky",
+      "obj-parseador-intenciones-y-control-ca-simulador-3d-e0vo",
+      "obj-ciudades-osm-3d-y-meteorologia-open-meteo-n8n-simulador-3d-vd58",
+      "obj-analisis-reportes-pdf-kmz-csv-exportacion-cliente-simulador-4lcq",
+      "obj-qa-pruebas-unitarias-performance-vitest-simulador-3d-puo2",
+      "obj-deploy-github-pages-actions-workflow-simulador-3d-yfgr"
+    ]
+  },
+  "tests": {
+    "framework": "vitest",
+    "archivos": [
+      "src/test/rothermel.test.js",
+      "src/test/kitral.test.js",
+      "src/test/api_cliente.test.js"
+    ],
+    "total": 29,
+    "pasando": 29,
+    "fallando": 0,
+    "prueba_mutacion": "viento K2 15→80 para forzar cap 60 m/min — FALLO verificado antes de fix"
+  },
+  "build": {
+    "comando": "npm run build",
+    "estado": "success",
+    "advertencias": ["chunk size >500kB para transformers.js y three.js (esperado)"]
+  }
+}

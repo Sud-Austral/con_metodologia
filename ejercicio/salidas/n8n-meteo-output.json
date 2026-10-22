@@ -1,0 +1,24 @@
+{
+  "workflow_id": "ljDGeTW5x610iZtz",
+  "execution_id": "345",
+  "status": "success",
+  "startedAt": "2026-10-22T01:48:50.454Z",
+  "stoppedAt": "2026-10-22T01:48:51.321Z",
+  "duracion_ms": 867,
+  "resultado": {
+    "fuente": "open-meteo",
+    "lat": -41.47,
+    "lon": -72.94,
+    "zona": "Los Lagos Chile",
+    "generado": "2026-10-21T22:48:51.285-03:00",
+    "muestra": {
+      "temp_actual": 12.4,
+      "hr_actual": 97,
+      "viento_kmh_actual": 10.2,
+      "dir_viento_grados": 13,
+      "precip_mm": 0,
+      "horas_pronostico": 72
+    }
+  },
+  "nota": "Ejecucion manual verificada. Datos reales Open-Meteo para Los Lagos."
+}

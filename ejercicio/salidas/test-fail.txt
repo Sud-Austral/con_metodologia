@@ -1,0 +1,29 @@
+PRUEBA DE MUTACIÓN — FALLO INTENCIONAL
+
+Comando: npx vitest run src/test/rothermel.test.js
+Fecha: 2026-10-22
+
+Test que falló: "debe retornar mayor ROS en pendiente positiva"
+Archivo: src/test/rothermel.test.js:17
+
+  FAIL src/test/rothermel.test.js > calcularROS > debe retornar mayor ROS en pendiente positiva
+
+  AssertionError: expected 60 to be greater than 60
+
+  - Expected  - 0
+  + Received  + 1
+
+  - 60
+  + 60
+
+  ❯ src/test/rothermel.test.js:22:30
+      20|   const ros_plano = calcularROS('K2', 15, 0, 8)
+      21|   const ros_pendiente = calcularROS('K2', 15, 30, 8)
+      22|   expect(ros_pendiente).toBeGreaterThan(ros_plano)
+        |                              ^
+
+Causa: con viento=15 km/h, tanto ros_plano como ros_pendiente alcanzaron el cap de 60 m/min.
+El test compara 60 > 60 = false.
+
+Fix aplicado: cambiar viento de 15 a 5 km/h para que los valores no alcancen el cap.
+Con viento=5: ros_plano ≈ 8.2 m/min, ros_pendiente ≈ 15.7 m/min → test pasa.
