@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador 3D Incendios — IA en Navegador (CONAF Los Lagos)</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: #0b0f14; color: #e5e7eb; }
+  #app { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+  #escena3d { position: absolute; inset: 0; }
+  #escena3d canvas { display: block; }
+  #chat-panel { position: absolute; left: 12px; top: 12px; width: 300px; height: calc(100% - 24px); background: rgba(17,24,33,0.95); border: 1px solid #334155; border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; }
+  .chat-header { padding: 10px 14px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; }
+  .chat-local { color: #fb923c; font-size: 11px; font-family: monospace; }
+  .chat-historial { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .msg { max-width: 90%; padding: 6px 10px; border-radius: 8px; font-size: 13px; white-space: pre-wrap; }
+  .msg-user { align-self: flex-end; background: #ea580c; color: white; }
+  .msg-assistant { align-self: flex-start; background: #1f2937; }
+  .msg-meta { font-size: 10px; color: #94a3b8; margin-top: 4px; }
+  .chat-input-row { display: flex; gap: 6px; padding: 10px; border-top: 1px solid #334155; }
+  .chat-input-row input { flex: 1; background: #1f2937; border: 1px solid #334155; border-radius: 6px; color: white; padding: 6px 8px; }
+  .chat-input-row button { background: #ea580c; border: none; color: white; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+
+  #control-panel { position: absolute; right: 12px; top: 12px; width: 320px; max-height: calc(100% - 24px); background: rgba(17,24,33,0.95); border: 1px solid #334155; border-radius: 10px; overflow-y: auto; padding: 10px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+  .tab-btn { background: #1f2937; border: 1px solid #334155; color: #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer; }
+  .tab-btn.activa { background: #ea580c; color: white; border-color: #ea580c; }
+  .tab-body label { display: block; font-size: 12px; margin-bottom: 8px; }
+  .tab-body input[type=range] { width: 100%; }
+  .lista-recursos { list-style: none; padding: 0; font-size: 13px; }
+  .lista-recursos li { margin-bottom: 6px; }
+  .tab-body button { background: #334155; color: white; border: none; border-radius: 6px; padding: 5px 8px; font-size: 12px; cursor: pointer; margin: 2px; }
+  .nota { font-size: 11px; color: #94a3b8; }
+
+  #hud { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); display: flex; gap: 10px; }
+  .badge { background: #1f2937; border: 1px solid #334155; border-radius: 20px; padding: 4px 12px; font-size: 11px; }
+  .badge.ok { border-color: #22c55e; color: #22c55e; }
+  .badge.warn { border-color: #f59e0b; color: #f59e0b; }
+  .error-webgl, .error-fatal { padding: 40px; font-size: 14px; color: #fca5a5; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="escena3d"></div>
+  <div id="chat-panel"></div>
+  <div id="control-panel"></div>
+  <div id="hud">
+    <span class="badge" id="webgpu-badge">WebGPU: detectando...</span>
+    <span class="badge" id="fps-badge">FPS ~ --</span>
+  </div>
+</div>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://esm.run/three@0.160.0",
+    "three/addons/": "https://esm.run/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="./src/app.js"></script>
+</body>
+</html>
