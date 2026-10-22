@@ -1,0 +1,14 @@
+--- simulacionControl pausar ---
+{"ok":true,"accion":"pausar","pausado":true}
+--- simulacionControl reanudar ---
+{"ok":true,"accion":"reanudar","pausado":false}
+--- simulacionControl invalido (debe lanzar) ---
+ERROR esperado: Accion de control desconocida: volar
+--- despachoDesplegar ---
+{"ok":true,"recurso_id":"R-22","destino":"norte","eta_min":8,"estado":"EN TRANSITO"}
+--- simulacionAplicarRetardante ---
+{"ok":true,"producto":"Phos-Chek","volumen":1200,"ros_reduccion_pct":24}
+--- analisisEstadisticas (sin datos aun) ---
+{"serie":[],"actual":{"nombre":"Los Lagos — Coigue-1 (demo)","minutos":0,"hectareas":0,"ros_cabeza":0,"altura_llama":0,"dir_viento":270,"vel_viento":22,"hum_combustible":9,"modelo":"K2","lat":-41.47,"lng":-72.7,"recursos_markdown":"- R-22 (Brigada): EN TRANSITO\n- H-01 (Helicoptero): Base","amenazadas_markdown":"- Escuela Pucatrihue: 4.5 km"}}
+--- rosActual ---
+3.433691911337423

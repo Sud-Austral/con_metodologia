@@ -1,0 +1,24 @@
+{
+  "webgpuBadge": "WebGPU: no disponible (requestAdapter() devolvio null) — usando respuestas template",
+  "fpsBadge": "FPS ~ 40 · ms/tick ~ 0.6",
+  "fpsBadgeFinal": "FPS ~ 33 · ms/tick ~ 0.5",
+  "statusExportarMarkdown": "markdown: 794 caracteres, mensajes en IndexedDB: 4",
+  "statusExportarCsv": "csv: 12 lineas",
+  "historialTras_pregunta_simple": "¿Cual es el ROS actual?Sin IA disponible (WebGPU no detectado en este dispositivo), pero con los datos actuales: ROS 3.4336919113374225 m/min, 4.6137 ha quemadas, viento 22 km/h desde 270°. Pregunta recibida: \"¿Cual es el ROS actual?\".fallback · 0.00s",
+  "historialTras_comando_desplegar": "¿Cual es el ROS actual?Sin IA disponible (WebGPU no detectado en este dispositivo), pero con los datos actuales: ROS 3.4336919113374225 m/min, 4.6137 ha quemadas, viento 22 km/h desde 270°. Pregunta recibida: \"¿Cual es el ROS actual?\".fallback · 0.00sDesplegar Brigada R-22 al norte, acceso Los CopihuesSin IA disponible (WebGPU no detectado en este dispositivo), pero con los datos actuales: ROS 3.4336919113374225 m/min, 19.0294 ha quemadas, viento 22 km/h desde 270°. Pregunta recibida: \"Desplegar Brigada R-22 al norte, acceso Los Copihues\".fallback · 0.00s✅ Comando ejecutado: {\"ok\":true,\"recurso_id\":\"R-22\",\"destino\":\"norte\",\"eta_min\":5,\"estado\":\"EN TRANSITO\"}",
+  "persistencia": {
+    "numMensajesEnDBAntes": 4,
+    "numMensajesTrasRecargar": 4,
+    "recupera": true
+  },
+  "consola": [
+    "[warn] WARNING: Multiple instances of Three.js being imported.",
+    "[warn] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.",
+    "[warn] No available adapters.",
+    "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "[warn] No available adapters.",
+    "[warn] WARNING: Multiple instances of Three.js being imported.",
+    "[warn] []Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader flag to opt in to lower security guarantees for trusted content.",
+    "[warn] No available adapters."
+  ]
+}

@@ -1,0 +1,33 @@
+fuente: https://api.open-meteo.com/v1/forecast?latitude=-41.47&longitude=-72.7&hourly=temperature_2m%2Crelative_humidity_2m%2Cprecipitation%2Cwind_speed_10m%2Cwind_direction_10m&timezone=America%2FSantiago&forecast_days=1&wind_speed_unit=ms
+primeras 3 horas procesadas: [
+  {
+    "hora": "2026-10-21T00:00",
+    "temp": 11.3,
+    "hr": 97,
+    "vientoKmh": 6.48,
+    "dirVientoGrados": 56,
+    "precipitacion": 0,
+    "humedadFino": 28.227,
+    "fwiIndice": 5.4
+  },
+  {
+    "hora": "2026-10-21T01:00",
+    "temp": 10.7,
+    "hr": 97,
+    "vientoKmh": 6.264,
+    "dirVientoGrados": 72,
+    "precipitacion": 0,
+    "humedadFino": 28.227,
+    "fwiIndice": 4.5
+  },
+  {
+    "hora": "2026-10-21T02:00",
+    "temp": 10.3,
+    "hr": 96,
+    "vientoKmh": 6.048,
+    "dirVientoGrados": 67,
+    "precipitacion": 0,
+    "humedadFino": 27.648,
+    "fwiIndice": 4.1
+  }
+]

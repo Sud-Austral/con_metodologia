@@ -1,0 +1,192 @@
+{
+  "modo": "con",
+  "commit_base": "17ee9cfe42d49a1bdba47537001c14b508b9d857",
+  "inicio": "2026-10-21T21:58:00Z (aproximado; no hay timestamp exacto del primer turno, estimado a partir de la hora del commit base 21:46:07Z y de los primeros logs reales a las 22:02Z)",
+  "fin": "2026-10-21T22:45:00Z (aproximado, hora del último log real: webllm_real_medicion.json)",
+  "turnos": "no medido con precisión por el harness; estimado ~45-55 llamadas a herramientas en una sesión continua de subagente",
+  "preguntas_al_humano": 0,
+  "herramientas": {
+    "mcp_metodologias": [
+      { "herramienta": "listar_metodologias", "veces": 1, "resultado": "ok" },
+      { "herramienta": "listar_objetivos", "veces": 1, "resultado": "ok" },
+      { "herramienta": "ver_metodologia", "veces": 2, "resultado": "ok" },
+      { "herramienta": "crear_metodologia", "veces": 1, "resultado": "ok", "id_creado": "smb-metodologia-conaf-simulador-3d-incendios-ia-en-navegador-ejercicio-metod" }
+    ],
+    "mcp_n8n": [],
+    "nota_n8n": "No se usó ningún flujo n8n. Decisión explícita documentada en supuestos y en ejercicio/HERRAMIENTAS.md: la metodología dice que n8n es 'permitido, no obligatorio' para tareas periódicas; este MVP no requiere una tarea periódica (la meteorología se consulta en vivo desde el navegador)."
+  },
+  "archivos": {
+    "creados": [
+      "app/index.html", "app/src/app.js", "app/src/endpoints.js", "app/src/escena3D.js",
+      "app/src/estado.js", "app/src/exportar/exportar.js", "app/src/ia/clienteLLM.js",
+      "app/src/ia/contexto.js", "app/src/ia/parseadorIntenciones.js",
+      "app/src/motores/ca_propagacion.js", "app/src/motores/descarga_dem.js",
+      "app/src/motores/kitral.js", "app/src/motores/kitral_worker.js",
+      "app/src/motores/meteorologia.js", "app/src/motores/rothermel.js",
+      "app/src/persistencia/db.js", "app/src/ui/chatPanel.js", "app/src/ui/controlPanel.js",
+      "tools/server.mjs", "tools/test_motores.mjs", "tools/verificar_app.mjs",
+      "tools/verificar_casos_uso.mjs", "tools/verificar_pdf_kmz.mjs",
+      "tools/verificar_terrarium.mjs", "tools/verificar_webllm_real.mjs",
+      "tools/package.json", "tools/package-lock.json", "tools/.gitignore",
+      "ejercicio/OBJETIVOS.md", "ejercicio/HERRAMIENTAS.md", "ejercicio/EQUIVOCACIONES.md",
+      "ejercicio/VERIFICACION.md", "ejercicio/metadatos.json",
+      "ejercicio/salidas/* (27+ archivos, ver carpeta)"
+    ],
+    "modificados": [
+      "app/src/endpoints.js (orden de parseo de intenciones, ver EQUIVOCACIONES.md #7)",
+      "app/src/escena3D.js (fix FPS Infinity + retardante real, ver EQUIVOCACIONES.md #8)",
+      "app/src/ia/clienteLLM.js (texto de fallback, ver EQUIVOCACIONES.md #7)",
+      "app/src/motores/meteorologia.js (wind_speed_unit=ms, ver EQUIVOCACIONES.md #6)"
+    ],
+    "no_tocar_modificados": []
+  },
+  "nota_no_tocar": "La Sección 2 del documento insumo marca 'NO TOCAR' a frontend/src/pages/simulacion/motores/*.js de otro repositorio (Coigüe-1). Ese código NO existe en este repositorio con_metodologia (nace vacío, solo .gitattributes en el commit base). No había nada que tocar ni dejar de tocar; se construyeron réplicas propias documentadas como tales (ver comentarios de cabecera en app/src/motores/*.js).",
+  "lineas_codigo_total": 1879,
+  "commits": [
+    { "hash": "9d6b15a", "mensaje": "Scaffold simulador 3D solo-frontend: motores CA/Rothermel/KITRAL, IA WebLLM, endpoints de cliente, UI" },
+    { "hash": "1792892", "mensaje": "Verificacion real end-to-end + correccion de bugs encontrados + documentacion metodologia" },
+    { "hash": "4ecf168", "mensaje": "Cierre del ejercicio: metadatos.json, VERIFICACION.md, mediciones WebLLM reales" },
+    { "hash": "21e3972", "mensaje": "Remove stray commit message scratch file" },
+    { "hash": "(este commit, no se puede conocer el hash antes de crearlo)", "mensaje": "Ultimo ajuste de metadatos.json con hashes finales" }
+  ],
+  "comandos_reproducir": {
+    "pruebas_motores_y_benchmark_ca_240": "node tools/test_motores.mjs",
+    "servidor_estatico": "node tools/server.mjs app 8787",
+    "verificacion_app_chrome_real": "node tools/verificar_app.mjs",
+    "verificacion_pdf_kmz": "node tools/verificar_pdf_kmz.mjs",
+    "verificacion_casos_de_uso": "node tools/verificar_casos_uso.mjs",
+    "verificacion_dem_terrarium_real": "node tools/verificar_terrarium.mjs",
+    "verificacion_webllm_real": "node tools/verificar_webllm_real.mjs",
+    "open_meteo_real": "node -e \"fetch('https://api.open-meteo.com/v1/forecast?latitude=-41.47&longitude=-72.70&hourly=temperature_2m&forecast_days=1').then(r=>r.json()).then(d=>console.log(JSON.stringify(d)))\""
+  },
+  "timeline": [
+    { "semana": "1-2", "casilla": "Integrar KITRAL CA en Web Worker (no bloquea render)", "estado": "verificado", "evidencia": "ejercicio/salidas/test_motores_exitosa.txt; ejercicio/salidas/verificacion_app_real.json" },
+    { "semana": "1-2", "casilla": "Cargar DEM real Terrarium (HTTP)", "estado": "no comprobado", "evidencia": "ejercicio/salidas/cargarDEM_terrarium_browser_real.json muestra fallback por CORS; el dato REAL de Terrarium nunca se obtuvo. El fallback sintético sí está verificado." },
+    { "semana": "1-2", "casilla": "Clasificación automática vegetación (percentiles)", "estado": "verificado", "evidencia": "ejercicio/salidas/test_motores_exitosa.txt" },
+    { "semana": "1-2", "casilla": "Endpoint /api/v1/chat/consultar básico (sin Ollama aún)", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt; ejercicio/salidas/verificacion_app_real.json" },
+    { "semana": "1-2", "casilla": "Bocanadas de llama versión mejorada (altura física)", "estado": "no hecho", "evidencia": "escena3D.js usa THREE.Points simple, no el shader GLSL multi-bocanada de la Sección 6.3" },
+    { "semana": "2-3", "casilla": "Instalar Ollama + Mistral-7B (documentar pasos)", "estado": "no hecho", "evidencia": "No aplica por restricción de arquitectura (reemplazado por WebLLM en el navegador)" },
+    { "semana": "2-3", "casilla": "Integración automática (detectar si está corriendo)", "estado": "verificado", "evidencia": "ejercicio/salidas/verificacion_app_real.json (badge WebGPU); ejercicio/salidas/webllm_real_medicion.json (detección real de WebGPU disponible en una corrida)" },
+    { "semana": "2-3", "casilla": "ChatPanel.jsx con historial", "estado": "verificado", "evidencia": "ejercicio/salidas/captura_01_carga_inicial.png, captura_02, captura_03" },
+    { "semana": "2-3", "casilla": "Ensamblar contexto dinámico (estado simulación)", "estado": "verificado", "evidencia": "app/src/ia/contexto.js usado en cada chatConsultar; visible en respuestas reales de WebLLM que citan ROS/hectáreas/viento del estado actual" },
+    { "semana": "2-3", "casilla": "Almacenar mensajes en BD", "estado": "verificado", "evidencia": "ejercicio/salidas/verificacion_app_real.json -> persistencia.recupera: true" },
+    { "semana": "3-4", "casilla": "Parseador de intenciones (detectar comandos)", "estado": "verificado", "evidencia": "ejercicio/salidas/test_motores_exitosa.txt (27/27 pruebas)" },
+    { "semana": "3-4", "casilla": "POST /api/v1/despacho/desplegar (brigadas)", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt" },
+    { "semana": "3-4", "casilla": "POST /api/v1/simulacion/aplicar-retardante", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt; efecto real sobre ajusteROS en escena3D.js" },
+    { "semana": "3-4", "casilla": "POST /api/v1/simulacion/control (pausar, reanudar)", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt (caso válido e inválido)" },
+    { "semana": "3-4", "casilla": "Visualizar efectos en tiempo real (grid CA actualiza)", "estado": "no comprobado", "evidencia": "pausa y retardante sí afectan el tick real; despliegue de recursos NO se dibuja como marcador en la escena 3D (gap conocido, ver no_hecho)" },
+    { "semana": "4-5", "casilla": "Cargar OSM (Overpass API)", "estado": "no hecho", "evidencia": "fuera de presupuesto de este ejercicio" },
+    { "semana": "4-5", "casilla": "Edificios 3D + calles + servicios", "estado": "no hecho", "evidencia": "depende de la casilla anterior, no hecha" },
+    { "semana": "4-5", "casilla": "Fetch Open-Meteo (meteorología real)", "estado": "verificado", "evidencia": "ejercicio/salidas/open_meteo_real.json; ejercicio/salidas/cargarMeteo_endpoint8_real.txt" },
+    { "semana": "4-5", "casilla": "Integración FWI dinámica", "estado": "no hecho", "evidencia": "procesarFWI calculado y probado de forma aislada, pero no conectado al loop de simulación (sin aceleración 60x como describe la Sección 5.4)" },
+    { "semana": "4-5", "casilla": "Pestaña ANÁLISIS (gráficos ROS vs tiempo)", "estado": "verificado", "evidencia": "ejercicio/salidas/captura_04_pestana_analisis.png" },
+    { "semana": "5-6", "casilla": "Pestaña REPORTES (exportar, guardar)", "estado": "verificado", "evidencia": "ejercicio/salidas/captura_05_pestana_reportes.png" },
+    { "semana": "5-6", "casilla": "Exportar conversación a markdown", "estado": "verificado", "evidencia": "ejercicio/salidas/analisis_ia_exportado.md" },
+    { "semana": "5-6", "casilla": "Generar PDF (html2canvas + jsPDF)", "estado": "verificado", "evidencia": "ejercicio/salidas/analisis_ia_exportado.pdf (cabecera %PDF-1.3 confirmada); nota: se usó solo jsPDF con texto, sin html2canvas (no se capturó el canvas 3D dentro del PDF, ver supuestos)" },
+    { "semana": "5-6", "casilla": "Exportar KMZ (perimetro + frente)", "estado": "verificado", "evidencia": "ejercicio/salidas/perimetro_exportado.kmz (zip válido con doc.kml, coordenadas reales del perímetro del grid)" },
+    { "semana": "5-6", "casilla": "Exportar CSV (estadísticas)", "estado": "verificado", "evidencia": "ejercicio/salidas/estadisticas_exportado.csv" },
+    { "semana": "6-7", "casilla": "Pruebas unitarias (Jest): KITRAL, Rothermel, chat", "estado": "no comprobado", "evidencia": "Existen 27 pruebas unitarias reales con mutación demostrada (ejercicio/salidas/test_motores_{fallida,exitosa}.txt), pero con un arnés propio en Node, NO con Jest literalmente (decisión en supuestos)" },
+    { "semana": "6-7", "casilla": "Pruebas integración: chat + simulación", "estado": "verificado", "evidencia": "ejercicio/salidas/verificacion_app_real.json; ejercicio/salidas/casos_de_uso_transcripcion.json" },
+    { "semana": "6-7", "casilla": "Performance profiling (FPS, memoria, latencia)", "estado": "no comprobado", "evidencia": "FPS y ms/tick medidos reales; memoria del proceso NO medida; latencia de IA medida solo parcialmente (ver mediciones.latencia_ia_s)" },
+    { "semana": "6-7", "casilla": "Troubleshooting: Ollama fallback, DEM fallback", "estado": "verificado", "evidencia": "fallback sin WebGPU y fallback de DEM sintético ambos verificados reales con fallas reales de red/CORS" },
+    { "semana": "6-7", "casilla": "Documentación: API endpoints, casos de uso", "estado": "verificado", "evidencia": "este mismo conjunto de documentos" },
+    { "semana": "7-8", "casilla": "Validación con datos reales (comparar con incendio conocido)", "estado": "no hecho", "evidencia": "no se dispone de datos de un incendio real para contrastar en el tiempo de este ejercicio" },
+    { "semana": "7-8", "casilla": "Entrenamiento usuario (videotutorial 5 min)", "estado": "no hecho", "evidencia": "fuera de alcance" },
+    { "semana": "7-8", "casilla": "Deploy a uat (rama /uat, docker-compose)", "estado": "no hecho", "evidencia": "no aplica a arquitectura solo-frontend sin backend propio; además la instrucción pide explícitamente no hacer push" },
+    { "semana": "7-8", "casilla": "Deploy a production (rama /main)", "estado": "no hecho", "evidencia": "instrucción explícita: no push, no merge a main" },
+    { "semana": "7-8", "casilla": "Monitoreo: Loki logs, Prometheus métricas", "estado": "no hecho", "evidencia": "no aplica a arquitectura sin servidores propios" }
+  ],
+  "mvp": [
+    { "item": "DEM carga sin error (cualquier zona Los Lagos)", "estado": "verificado", "evidencia": "ejercicio/salidas/cargarDEM_endpoint7_real.txt (síntetico); ejercicio/salidas/cargarDEM_terrarium_browser_real.json (fallback real ante fallo de Terrarium)" },
+    { "item": "KITRAL CA ejecuta en <100 ms/tick (240×240 grid)", "estado": "verificado", "evidencia": "0.821 ms promedio (Node, 20 ticks), 0.5-2.4 ms (Chrome real) — ejercicio/salidas/test_motores_exitosa.txt, verificacion_app_real.json" },
+    { "item": "ChatPanel visible, sin crashes", "estado": "verificado", "evidencia": "ejercicio/salidas/captura_01_carga_inicial.png; consola sin pageerror" },
+    { "item": "Ollama detecta automáticamente (o fallback amigable)", "estado": "verificado", "evidencia": "Adaptado a WebGPU: detección automática real, badge visible en ambos casos (disponible / no disponible), nunca pantalla en blanco" },
+    { "item": "Pregunta simple responde en <3 segundos", "estado": "no cumplido", "evidencia": "En fallback sin IA: sí, <1s. Con WebLLM real: 20.49 s para una respuesta minima y 106.54 s para una respuesta con contexto completo (ejercicio/salidas/webllm_real_medicion.json, ejercicio/salidas/casos_de_uso_transcripcion.json) — NO cumple el requisito de <3s en este hardware/entorno" },
+    { "item": "Comando 'desplegar' ejecuta (brigada visible en mapa)", "estado": "no comprobado", "evidencia": "El comando se ejecuta y cambia el estado del recurso (endpoints_2_3_4_6_real.txt), pero no hay marcador 3D visible en la escena (gap conocido)" },
+    { "item": "Conversación se guarda en BD (recuperable)", "estado": "verificado", "evidencia": "ejercicio/salidas/verificacion_app_real.json -> persistencia.recupera: true" },
+    { "item": "Exportar markdown genera archivo descargable", "estado": "verificado", "evidencia": "ejercicio/salidas/analisis_ia_exportado.md; botón real en captura_05" },
+    { "item": "Sin crashes al cambiar de pestaña", "estado": "verificado", "evidencia": "tools/verificar_app.mjs cambia de pestaña repetidamente sin pageerror en consola" },
+    { "item": "≥30 FPS en GPU Intel HD 630 (benchmark)", "estado": "no comprobado", "evidencia": "24-40 FPS medidos en Chrome headless con render por software (SwiftShader), NO en una GPU Intel HD 630 real. No se tuvo acceso a ese hardware en este entorno." },
+    { "item": "Latencia IA <3 segundos (Mistral local)", "estado": "no cumplido", "evidencia": "Con WebLLM real (Llama-3.2-1B-Instruct-q4f16_1-MLC) se midieron 20.49 s (respuesta de 3 tokens) y 106.54 s (respuesta con contexto completo) en este entorno — ver ejercicio/salidas/webllm_real_medicion.json" }
+  ],
+  "endpoints_cliente": [
+    { "n": 1, "nombre_funcion": "chatConsultar", "archivo": "app/src/endpoints.js", "estado": "verificado", "evidencia": "ejercicio/salidas/verificacion_app_real.json; ejercicio/salidas/casos_de_uso_transcripcion.json (respuesta real de WebLLM en el caso 4, 106.54s)" },
+    { "n": 2, "nombre_funcion": "despachoDesplegar", "archivo": "app/src/endpoints.js", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt" },
+    { "n": 3, "nombre_funcion": "simulacionAplicarRetardante", "archivo": "app/src/endpoints.js", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt" },
+    { "n": 4, "nombre_funcion": "simulacionControl", "archivo": "app/src/endpoints.js", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt (incluye caso inválido con error esperado)" },
+    { "n": 5, "nombre_funcion": "chatExportar", "archivo": "app/src/endpoints.js", "estado": "verificado", "evidencia": "ejercicio/salidas/analisis_ia_exportado.md, .json, .pdf" },
+    { "n": 6, "nombre_funcion": "analisisEstadisticas", "archivo": "app/src/endpoints.js", "estado": "verificado", "evidencia": "ejercicio/salidas/endpoints_2_3_4_6_real.txt" },
+    { "n": 7, "nombre_funcion": "cargarDEM", "archivo": "app/src/motores/descarga_dem.js", "estado": "verificado", "evidencia": "ejercicio/salidas/cargarDEM_endpoint7_real.txt; ejercicio/salidas/cargarDEM_terrarium_browser_real.json", "nota": "Añadido como endpoint #7/8 porque la Sección 8.3 del documento solo lista 6 endpoints textualmente; ver supuestos" },
+    { "n": 8, "nombre_funcion": "cargarMeteo", "archivo": "app/src/motores/meteorologia.js", "estado": "verificado", "evidencia": "ejercicio/salidas/cargarMeteo_endpoint8_real.txt; ejercicio/salidas/open_meteo_real.json", "nota": "Añadido como endpoint #7/8 porque la Sección 8.3 del documento solo lista 6 endpoints textualmente; ver supuestos" }
+  ],
+  "casos_de_uso": [
+    { "n": 1, "nombre": "Lectura Simple", "estado": "verificado (pipeline), no comprobado (calidad de razonamiento IA)", "evidencia": "ejercicio/salidas/casos_de_uso_transcripcion.json" },
+    { "n": 2, "nombre": "Control — Desplegar Brigada", "estado": "verificado", "evidencia": "ejercicio/salidas/verificacion_app_real.json: comando_ejecutado con destino=norte, eta_min real" },
+    { "n": 3, "nombre": "Proyección Alternativa", "estado": "no comprobado", "evidencia": "requiere razonamiento de IA tipo tabla comparativa que el modelo de 1B no produjo de forma fiable en la corrida real disponible" },
+    { "n": 4, "nombre": "Análisis Estratégico", "estado": "parcial - verificado que WebLLM real respondió en español con contexto del incendio (ROS, hectáreas, viento), pero la respuesta no siguió la recomendación táctica estructurada del ejemplo del documento", "evidencia": "ejercicio/salidas/casos_de_uso_transcripcion.json, caso 4 (atribución de turno con posible desfase async, ver VERIFICACION.md)" },
+    { "n": 5, "nombre": "Guardado de Decisión", "estado": "verificado", "evidencia": "ejercicio/salidas/casos_de_uso_transcripcion.json -> decisionesGuardadas[0] (snapshot real guardado en IndexedDB)" },
+    { "n": 6, "nombre": "Análisis de Amenaza", "estado": "no comprobado", "evidencia": "requiere razonamiento de IA no verificado con calidad suficiente en este entorno" },
+    { "n": 7, "nombre": "Multi-turno", "estado": "parcial - pipeline de múltiples turnos funciona (comando_ejecutado visible), pero no se verificó la coherencia de 'Plan B/Plan C' entre turnos que describe el documento", "evidencia": "ejercicio/salidas/casos_de_uso_transcripcion.json" },
+    { "n": 8, "nombre": "Exportación Inteligente", "estado": "parcial - la exportación real (PDF/KMZ/CSV/markdown) funciona y se verificó con contenido real, pero el comando de chat 'exportar' no dispara la descarga automáticamente (gap en ejecutarComando)", "evidencia": "ejercicio/salidas/analisis_ia_exportado.pdf; ejercicio/salidas/perimetro_exportado.kmz" }
+  ],
+  "mediciones": {
+    "ms_por_tick_grid_240": 0.821,
+    "fps_medidos": 33,
+    "gpu_usada": "ninguna GPU dedicada confirmada; Chrome headless en este entorno. Para render 3D (captura de pantalla) se forzó --use-angle=swiftshader (software). Para WebLLM, en una corrida SIN esas flags, navigator.gpu.requestAdapter() tuvo éxito (gpuDisponible:true, ejercicio/salidas/webllm_real_medicion.json); no se pudo determinar con certeza si ese adapter es una GPU real del host o un backend Dawn/software, porque el entorno no expone esa información por línea de comandos.",
+    "latencia_ia_s": 20.49,
+    "latencia_ia_s_nota": "20.49 s medidos para una respuesta minima ('OK.', 3 tokens) con WebLLM real ya inicializado (ejercicio/salidas/webllm_real_medicion.json). Una respuesta mas larga y con mas contexto tardo 106.54 s en otra corrida (ejercicio/salidas/casos_de_uso_transcripcion.json, caso 4). Ambas ampliamente por encima del objetivo de <3s del documento.",
+    "modelo_navegador": "Llama-3.2-1B-Instruct-q4f16_1-MLC (WebLLM/MLC)",
+    "webgpu_disponible": true,
+    "webgpu_disponible_nota": "Inconsistente entre corridas de Chrome headless con distintas flags: false al lanzar con --use-angle=swiftshader (ejercicio/salidas/verificacion_app_real.json), true al lanzar sin esas flags (ejercicio/salidas/webllm_real_medicion.json, medición limpia dedicada). Se reporta true porque es la medición dedicada y mas limpia; ver EQUIVOCACIONES.md #12.",
+    "tamano_modelo_mb": null,
+    "descarga_modelo_s": 35.84,
+    "dem_carga_ms": null,
+    "tamano_bundle_kb": null,
+    "persistencia_recupera_al_reabrir": true
+  },
+  "pruebas": {
+    "unitarias_node": { "total": 27, "pasaron": 27, "fallaron": 0, "mutacion_demostrada": true, "evidencia_fallida": "ejercicio/salidas/test_motores_fallida.txt", "evidencia_exitosa": "ejercicio/salidas/test_motores_exitosa.txt" },
+    "integracion_navegador": { "herramienta": "puppeteer-core + Chrome real headless", "escenarios": ["carga inicial sin pantalla en blanco", "chat pregunta simple", "chat comando desplegar", "cambio de pestañas", "exportación markdown/csv/json/pdf/kmz", "persistencia tras recargar", "8 casos de uso de la Sección 9"] }
+  },
+  "secretos_en_codigo": false,
+  "secretos_en_codigo_verificacion": "grep -rniE 'api[_-]?key|secret|password|token\\s*=|bearer ' app/ tools/*.mjs -> sin resultados",
+  "objetos_externos_creados": {
+    "neo4j_conaf": [
+      { "tipo": "Sombrero:Metodologia", "id": "smb-metodologia-conaf-simulador-3d-incendios-ia-en-navegador-ejercicio-metod" }
+    ],
+    "n8n": [],
+    "nota": "No se crearon tablas de datos ni flujos n8n (decisión documentada, no obligatorio)."
+  },
+  "decisiones": [
+    "Rama de trabajo 'ejercicio/con-sim3d' en vez de 'ejercicio/con' (Windows reserva el nombre CON como dispositivo, no se puede crear ese ref de git).",
+    "Arquitectura 100% estática: HTML + ES modules + CDN (three.js, @mlc-ai/web-llm, jspdf, jszip) sin bundler ni npm install para la app en sí, servida con un servidor estático minimo (tools/server.mjs) — minimiza dependencias y cumple 'solo frontend'.",
+    "Motor CA propio (automata celular de tiempo mínimo de viaje) en vez de copiar ca_propagacion.js: ese archivo NO existe en este repositorio (marcado NO TOCAR pero inexistente aquí).",
+    "Modelo WebLLM elegido: Llama-3.2-1B-Instruct-q4f16_1-MLC (el más pequeño de los sugeridos por la consigna), para minimizar tiempo de descarga.",
+    "Metodología CONAF: se reutilizaron los 13 objetivos genéricos ya existentes en la instancia 'conaf' componiéndolos en una metodología nueva, en vez de crear objetivos nuevos (evita duplicar el catálogo compartido).",
+    "Se añadieron cargarDEM y cargarMeteo como endpoints de cliente #7 y #8 para cumplir el requisito de '8 endpoints' de la consigna, ya que la Sección 8.3 del documento solo lista 6 textualmente (ver supuestos)."
+  ],
+  "supuestos": [
+    "La Sección 8.3 del documento insumo lista textualmente 6 endpoints, no 8. Para llegar a 8 sin inventar funcionalidad nueva se agregaron cargarDEM (Sección 5.1) y cargarMeteo (Sección 5.4), que sí tienen firma y contrato explícitos en el documento.",
+    "La tabla de coeficientes KITRAL (rosBase, coefViento, coefPendiente, humedadExtincion por K1-K13) es una aproximación propia razonable, NO los valores oficiales calibrados del sistema KITRAL real (CONAF/USACH), porque el documento insumo no incluye esa tabla numérica y el archivo original kitral.js (NO TOCAR) no existe en este repositorio.",
+    "La fórmula de ROS es una aproximación inspirada en Rothermel (1972), no una implementación literal y completa del modelo físico original (que requiere más parámetros: carga de combustible, relación superficie/volumen, densidad aparente, etc. no provistos por el documento).",
+    "El FWI (Fire Weather Index) se calcula con una fórmula simplificada propia, no el FWI canadiense real (que requiere estado acumulado de varios días previos, no disponible).",
+    "'Pruebas unitarias (Jest)' de la Sección 10 se interpretaron como 'pruebas unitarias automatizadas con mutación demostrada', implementadas con un arnés propio en Node sin la dependencia npm 'jest' (para minimizar dependencias de un proyecto solo-frontend). Se documenta como decisión explícita, no como Jest literal.",
+    "'KMZ' se generó como un .kmz real (zip con JSZip conteniendo doc.kml), no una simplificación a .kml plano, aunque el código tiene un fallback a .kml sin comprimir si JSZip no estuviera disponible.",
+    "El PDF se generó con jsPDF puro (texto), sin html2canvas (no se capturó el lienzo 3D de Three.js dentro del PDF como sugiere la Sección 8.2), por limitación de tiempo.",
+    "La rama se llama 'ejercicio/con-sim3d' en vez de 'ejercicio/con' por la restricción de nombres reservados de Windows (ver decisiones y EQUIVOCACIONES.md).",
+    "'GPU Intel HD 630' del Checklist Mínimo no estaba disponible en este entorno de ejecución (máquina de agente sin ese hardware específico); el benchmark de FPS se hizo con Chrome headless + renderizado por software."
+  ],
+  "no_comprobado": [
+    "Dato real de elevación de Terrarium (el fetch real fallo por CORS del bucket público S3; se verificó el fallback a DEM sintético, no el dato real)",
+    "Calidad de razonamiento de WebLLM en los casos de uso 3, 4, 6 y parte del 7 (tablas comparativas, 'Plan B/C', recomendaciones tácticas estructuradas como en los ejemplos del documento) — el modelo de 1B respondió en español con el contexto correcto pero sin esa estructura",
+    "FPS ≥30 en GPU Intel HD 630 real (solo medido en software rendering headless)",
+    "Tamaño real del modelo descargado en MB (sí se midió el tiempo: 35.84 s de inicialización/descarga/compilación, pero no el tamaño en bytes/MB transferido)",
+    "Tamaño del bundle de producción en KB (no hay paso de build/bundling: es ES modules + CDN directo, no aplica un 'bundle' único)",
+    "Tiempo de carga del DEM sintético en ms de forma aislada (se mide junto con la inicialización de la escena 3D, no por separado)",
+    "Memoria RAM/VRAM consumida por la app o por WebLLM",
+    "Despliegue visual de brigadas/recursos como marcadores 3D en la escena (el estado cambia pero no hay geometría asociada)",
+    "Integración de OSM (edificios, calles, servicios) — no implementada",
+    "Integración dinámica de FWI/meteorología en el loop de simulación (aceleración 60x) — no implementada",
+    "Validación contra un incendio real conocido"
+  ]
+}
